@@ -1,0 +1,115 @@
+extends layout
+
+block body
+  .headwrap
+    header
+      include includes/nav
+      .rocket.zoom
+    section#hero
+      h2 Get more done.
+      h2 Have more 
+        strong fun.
+      h3 Same-page-ify your team with shared tasks and chat.
+      img.screenshot(src="/images/heroScreenshot.png")
+  section#signup
+    div
+      h3 Join the 
+        strong beta queue
+      //- input(placeholder="your@email.com")
+      span#email_error
+      form(action="https://andyet.createsend.com/t/r/s/jjjdudh/", method="post", id="subForm")
+        input(type="text", name="cm-jjjdudh-jjjdudh", id="jjjdudh-jjjdudh", placeholder="you@reaweso.me")
+        //- <input type="submit" value="Subscribe" />
+        button(id="subscribe", type="submit")
+          .icon
+            svg(version="1.1", xmlns="http://www.w3.org/2000/svg", x="0px", y="0px", viewBox="0 0 50 50")
+              g
+                path(d="M38.375,6.086c-0.009-0.235-0.186-0.412-0.422-0.422c-4.341-0.156-8.674,0.534-12.557,2.546 c-2.91,1.507-5.355,3.771-7.278,6.406c-1.979,0.109-3.843,0.797-5.611,1.659c-1.105,0.539-2.06,0.997-2.739,2.031 c-1.496,2.28-2.063,5.354-2.357,8.027c-0.025,0.223,0.254,0.336,0.423,0.242c1.69-0.919,3.746-1.252,5.67-1.333 c-0.085,0.44-0.163,0.879-0.224,1.318c-0.008,0.057-0.015,0.112-0.022,0.167c-0.037,0.085-0.044,0.178-0.007,0.268 c0.026,0.113,0.103,0.189,0.199,0.228c0.049,0.042,0.097,0.083,0.146,0.124c-0.146,0.417-0.29,0.834-0.436,1.251 c-0.029,0.085,0,0.217,0.072,0.273c1.249,0.984,2.498,1.968,3.748,2.952c0.1,0.079,0.222,0.114,0.34,0.044 c0.299-0.177,0.597-0.353,0.895-0.53c0.328,0.183,0.66,0.27,0.98,0.173c0.288-0.087,0.573-0.179,0.858-0.273 c0.139,1.82,0.048,3.744-0.589,5.437c-0.078,0.21,0.154,0.395,0.347,0.347c2.544-0.644,5.368-1.618,7.42-3.294 c0.949-0.775,1.23-1.525,1.646-2.659c0.642-1.754,1.1-3.637,1.071-5.515c0.342-0.309,0.676-0.622,1.002-0.949 c4.289-4.322,6.735-10.249,7.324-16.262C38.352,7.543,38.404,6.877,38.375,6.086z M28.694,17.666c-1.802,0-3.261-1.46-3.261-3.261 c0-1.802,1.459-3.262,3.261-3.262s3.261,1.46,3.261,3.262C31.955,16.206,30.496,17.666,28.694,17.666z")
+                path(d="M14.889,32.455c-0.024-0.036-0.051-0.062-0.08-0.085c-1.373-1.53-3.604-1.883-5.261-0.554 c-0.028,0.011-0.055,0.025-0.08,0.046c-1.697,1.344,0.107,4.308-2.274,4.92c-0.175,0.046-0.227,0.363-0.072,0.521 c1.195,1.216,2.942,1.784,4.619,1.517c3.023-0.483,4.901-3.606,3.205-6.274C14.932,32.517,14.915,32.484,14.889,32.455z")
+
+  section#benefits
+    div
+      .icon
+        svg(version="1.1", xmlns="http://www.w3.org/2000/svg", x="0px", y="0px", viewBox="0 0 50 50")
+          path(d="M31.51,17.341c-0.138-0.305-0.44-0.483-0.782-0.478l-6.861,0.366l5.606-10.465 c0.191-0.357,0.091-0.802-0.238-1.039c-0.328-0.237-0.782-0.197-1.062,0.098l-16.501,17.32c-0.235,0.246-0.29,0.612-0.14,0.917 c0.151,0.305,0.483,0.491,0.811,0.447l6.576-0.699l-7.877,12.698c-0.217,0.352-0.137,0.809,0.188,1.063 c0.148,0.117,0.323,0.174,0.5,0.174c0.211,0,0.42-0.081,0.576-0.24l19.04-19.262C31.581,18.004,31.646,17.646,31.51,17.341z")
+
+      p Focus on finishing what's 
+        br 
+        | important right now.
+    div
+      .icon
+        svg(version="1.1", xmlns="http://www.w3.org/2000/svg", x="0px", y="0px", viewBox="0 0 50 50")
+          g
+            path(d="M38.375,6.086c-0.009-0.235-0.186-0.412-0.422-0.422c-4.341-0.156-8.674,0.534-12.557,2.546 c-2.91,1.507-5.355,3.771-7.278,6.406c-1.979,0.109-3.843,0.797-5.611,1.659c-1.105,0.539-2.06,0.997-2.739,2.031 c-1.496,2.28-2.063,5.354-2.357,8.027c-0.025,0.223,0.254,0.336,0.423,0.242c1.69-0.919,3.746-1.252,5.67-1.333 c-0.085,0.44-0.163,0.879-0.224,1.318c-0.008,0.057-0.015,0.112-0.022,0.167c-0.037,0.085-0.044,0.178-0.007,0.268 c0.026,0.113,0.103,0.189,0.199,0.228c0.049,0.042,0.097,0.083,0.146,0.124c-0.146,0.417-0.29,0.834-0.436,1.251 c-0.029,0.085,0,0.217,0.072,0.273c1.249,0.984,2.498,1.968,3.748,2.952c0.1,0.079,0.222,0.114,0.34,0.044 c0.299-0.177,0.597-0.353,0.895-0.53c0.328,0.183,0.66,0.27,0.98,0.173c0.288-0.087,0.573-0.179,0.858-0.273 c0.139,1.82,0.048,3.744-0.589,5.437c-0.078,0.21,0.154,0.395,0.347,0.347c2.544-0.644,5.368-1.618,7.42-3.294 c0.949-0.775,1.23-1.525,1.646-2.659c0.642-1.754,1.1-3.637,1.071-5.515c0.342-0.309,0.676-0.622,1.002-0.949 c4.289-4.322,6.735-10.249,7.324-16.262C38.352,7.543,38.404,6.877,38.375,6.086z M28.694,17.666c-1.802,0-3.261-1.46-3.261-3.261 c0-1.802,1.459-3.262,3.261-3.262s3.261,1.46,3.261,3.262C31.955,16.206,30.496,17.666,28.694,17.666z")
+            path(d="M14.889,32.455c-0.024-0.036-0.051-0.062-0.08-0.085c-1.373-1.53-3.604-1.883-5.261-0.554 c-0.028,0.011-0.055,0.025-0.08,0.046c-1.697,1.344,0.107,4.308-2.274,4.92c-0.175,0.046-0.227,0.363-0.072,0.521 c1.195,1.216,2.942,1.784,4.619,1.517c3.023-0.483,4.901-3.606,3.205-6.274C14.932,32.517,14.915,32.484,14.889,32.455z")
+
+      p High-five your teammates 
+        br 
+        | when they ship
+    div
+      .icon
+        svg(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', viewBox="0 0 60 60")
+          g
+            path(d='M37.418,34.3c-2.1-2.721-2.622-6.352-1.292-9.604c0.452-1.107,1.104-2.1,1.902-2.951 c-0.753-0.877-1.573-1.697-2.507-2.387l-2.609,1.408c-1.05-0.629-2.194-1.112-3.414-1.421l-0.845-2.833 c-0.75-0.112-1.512-0.188-2.287-0.188c-0.783,0-1.54,0.075-2.288,0.188l-0.851,2.833c-1.215,0.309-2.355,0.792-3.41,1.421 l-2.614-1.408c-1.229,0.912-2.318,2-3.228,3.231l1.404,2.612c-0.628,1.053-1.11,2.193-1.419,3.411l-2.832,0.849 c-0.114,0.75-0.187,1.508-0.187,2.287c0,0.778,0.073,1.537,0.187,2.286l2.832,0.848c0.309,1.22,0.791,2.36,1.419,3.413l-1.404,2.61 c0.909,1.231,1.999,2.321,3.228,3.231l2.614-1.406c1.055,0.628,2.195,1.11,3.41,1.42l0.851,2.832 c0.748,0.114,1.505,0.188,2.288,0.188c0.775,0,1.537-0.074,2.287-0.188l0.845-2.832c1.224-0.31,2.364-0.792,3.414-1.42l0.062,0.033 l2.045-3.02L37.418,34.3z M26.367,36.776c-2.777,0-5.027-2.253-5.027-5.027c0-2.775,2.25-5.028,5.027-5.028 c2.774,0,5.024,2.253,5.024,5.028C31.391,34.523,29.141,36.776,26.367,36.776z')
+            path(d='M51.762,24.505l-1.125-0.459l-1.451,3.55c-0.814,1.993-2.832,3.054-4.505,2.37l-0.355-0.144 c-1.673-0.686-2.37-2.856-1.558-4.849l1.451-3.551l-1.125-0.46c-2.225,0.608-4.153,2.2-5.092,4.501 c-1.225,2.997-0.422,6.312,1.771,8.436l-2.958,6.812l-2.204,3.249l-0.007,2.281l5.275,2.154l1.593-1.633l0.7-3.861l2.901-6.836 c3.049,0.018,5.947-1.785,7.174-4.779C53.186,28.983,52.924,26.499,51.762,24.505z')
+
+      p Powerful realtime API and 
+        br
+        | dead-simple JavaScript SDK
+
+  section#more
+    article.one.clearfix
+      h1 Ban guilt and distraction
+      blockquote We're tired of tools that make us feel bad about doing work we love.        
+      div
+        p You sit down at your desk, ready to crank. You've got a big block of time and a killer playlist. (What more could you need?)
+        p So you pull up your project's backlog and start digging in. An hour later, you realize you've posted dozens of comments on your project management tools and you can't even remember what you sat down to do.
+        p And <strong>that's</strong> when the email deluge starts. <em>New item! New issue! New bug! New todo! Pull request! Question! Answer! CC! Reply-all! C-C-C-Combo breaker!</em>
+        p Ugh.
+        p You started out motivated and ready to kick this project into high gear—but now here you are: demoralized, and distracted by the mountainous wall of work that remains.
+        p And Bang was carefully designed with solving exactly this problem in mind. Check your guilt at the door, and focus on right now.         
+
+    article.two.clearfix
+      h1 Infuse joy and encouragement
+      blockquote The quality of your team's relationships determines the quality of your product.      
+      div
+        p You know it well: how you feel about your work and your team contributes more than anything else to your productivity.
+        p When you love your work and enjoy your team, you don’t need much planning to get a massive amount of quality work done—you're carried by the joy of comraderie and the deep satisfaction that comes from making great things happen together.
+        p We think celebration and encouragement should happen all day long. And Bang helps you stay connected to what's going on with your team, so you can cheer them on from anywhere.
+
+    article.three.clearfix
+      h1 Communicate smarter, not harder
+      blockquote What if everyone could just see the short list of your priorities for <u>right now</u>?      
+      div
+        p Meetings strangle productivity. Nobody gets in the zone with more email. Nagging is a drag for everyone involved.
+        p Let's face it: your team needs a smarter way to communicate.
+        p Most of your days get filled up with the work of non-work: email, meetings, check-ins, interruptions.
+        p The worst tragedy of all is having our focus shattered by the person on our team we're desperately working to unblock. <em>("I would be done sooner if you'd stop asking me how soon I'm gonna be done!")</em>
+        p Wouldn't it be awesome if there was a way to broadcast our priorities and what we're working on right now to the rest of our team?
+        p And Bang helps teams share what they're working on, what they've just finished, and what's next. Sending a task to a teammate is simple.
+
+    article.four.clearfix
+      h1 Create a culture of shipping
+      blockquote &#8220;My favorite productivity tip: sit down and do a bunch of work.&#8221; &mdash; <a href="https://twitter.com/johnnie/status/227548592439697409">@johnnie</a>
+      div
+        p And Bang is decidedly a tool for <em>doing</em>—not planning. Besides, it's pretty simple: the best way to eat your whale of a backlog is one bite at a time.
+        p It’s amazing how if you have a balanced enough team, you don’t need a ton of detailed planning. What you need is people who care deeply about different pieces of the final project, and who will drag others along in getting done what they need.
+        p Project management apps excel at shuffling around stuff you’re gonna maybe do later. You need a tool that helps you get the right things done where the work really happens: which is <em>right now!</em>
+        p Our team at <a href="http://andyet.com">&yet</a> has been using And Bang for a year and a half as the primary tool we rely on to get our work done for Fortune 500 companies, startups, and ourselves.
+
+      
+
+    article.five.clearfix
+      h1 Build on a robust realtime API
+      blockquote &#8220;The &yet guys really get it.&#8221;
+        br 
+        | — Owen, SocketStream 
+        br  
+        br 
+        | &#8220;Everyone will be building apps this way soon.&#8221;
+        br 
+        | — Geoff, Meteor      
+      div
+        p It's arguable And Bang 2.0's most useful feature is the fact that it’s not one interface—it’s a complete realtime platform. 
+        p And Bang is built from the ground-up on a revolutionary realtime multi-transport API with a dead-simple JavaScript SDK.
+        p Our philosophy of reimagining what a realtime task management tool should look like grew into asking what a realtime web app should look like in the simplest, clearest, most usable developer experience possible.
