@@ -7,7 +7,7 @@ var express = require('express'),
     Moonboots = require('moonboots'),
     config = require('getconfig'),
     semiStatic = require('semi-static'),
-    views = require('./serverapp/requestHandler');
+    views = require('./views');
 
 // developing without invalid cert complaints is just easier, Proxy will handle https
 var app = express();

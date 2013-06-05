@@ -5,8 +5,7 @@ module.exports = Backbone.Router.extend({
     routes: {
         '': 'home',
         'one': 'pageOne',
-        'two': 'pageTwo',
-        '404': 'fourOhFour'
+        'two': 'pageTwo'
     },
 
     // ------- ROUTE HANDLERS ---------
@@ -18,21 +17,14 @@ module.exports = Backbone.Router.extend({
     },
 
     pageOne: function () {
-        var View = require('pages/home');
+        var View = require('pages/one');
         app.renderPage(new View({
             model: me
         }));
     },
 
     pageTwo: function () {
-        var View = require('pages/home');
-        app.renderPage(new View({
-            model: me
-        }));
-    },
-
-    fourOhFour: function () {
-        var View = require('pages/home');
+        var View = require('pages/two');
         app.renderPage(new View({
             model: me
         }));

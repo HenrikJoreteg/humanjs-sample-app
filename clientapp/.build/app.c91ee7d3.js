@@ -5983,12 +5983,7 @@ exports.pages = {};
 exports.app = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        buf.push('<div class="navbar"><div class="navbar-inner"><a href="#" class="brand">Title</a><div class="nav"><li><a href="#">Home</a><a href="#">Page One</a><a href="#">Page Two</a></li></div></div></div><section' + jade.attrs({
-            id: "pages",
-            "class": "windowwidth " + textSize + ""
-        }, {
-            "class": true
-        }) + "></section>");
+        buf.push('<div class="container"><div class="navbar"><div class="navbar-inner"><a href="#" class="brand">human.js - sample</a><ul class="nav"><li><a href="/">home</a></li><li><a href="/one">page one</a></li><li><a href="/two">page two</a></li></ul></div></div><section id="pages"></section></div>');
     }
     return buf.join("");
 };
@@ -6008,20 +6003,38 @@ exports.includes.watchedTask = function anonymous(locals) {
     return buf.join("");
 };
 
-// chatHistory.jade compiled template
-exports.pages.chatHistory = function anonymous(locals) {
-    var buf = [];
-    with (locals || {}) {
-        buf.push('<section class="page chatHistory loading"><header><div class="headwrap"><h2>' + jade.escape((jade.interp = day) == null ? "" : jade.interp) + '<span class="prevDay">◀</span><span class="nextDay">▶</span></h2></div></header><ul class="messages"><div class="loadingMessage">loading...</div></ul></section>');
-    }
-    return buf.join("");
-};
-
 // fourOhFour.jade compiled template
 exports.pages.fourOhFour = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        buf.push('<section class="page fourOhFour"><h2 style="color: black">404</h2></section>');
+        buf.push('<section class="page fourOhFour"><h2>404</h2></section>');
+    }
+    return buf.join("");
+};
+
+// homepage.jade compiled template
+exports.pages.homepage = function anonymous(locals) {
+    var buf = [];
+    with (locals || {}) {
+        buf.push('<section class="page home"><h2>Home</h2><p>If you view source you\'ll see pretty things. </p></section>');
+    }
+    return buf.join("");
+};
+
+// pageOne.jade compiled template
+exports.pages.pageOne = function anonymous(locals) {
+    var buf = [];
+    with (locals || {}) {
+        buf.push('<section class="page pageOne"><h2>Page 1</h2></section>');
+    }
+    return buf.join("");
+};
+
+// pageTwo.jade compiled template
+exports.pages.pageTwo = function anonymous(locals) {
+    var buf = [];
+    with (locals || {}) {
+        buf.push('<section class="page pageTwo"><h2>Page 2</h2></section>');
     }
     return buf.join("");
 };
@@ -7412,47 +7425,26 @@ module.exports = {
 
         window.me = new Me();
 
-        // create a job queue for various tasks we want to do on load
-        var jobId = 0;
-        this.jobs = async.queue(function (job, cb) {
-            logger.info('running job', jobId++);
-            job(cb);
-        }, 2);
-        this.jobs.drain = function () {
-            logger.info('job queue empty');
-        };
+        // init our URL handlers and the history tracker
+        this.router = new Router();
+        this.history = Backbone.history;
 
-        // anything we want to do in parallel, we'd do here
-        async.parallel([
-            function (cb) {
-                // thi
-                cb();
-            }
-        ], function (err) {
-            if (err) {
-                logger.error(err);
-            } else {
-                //init our main application view
-                self.view = new MainView({model: me});
-
-                // we have what we need, we can now start our router and show the appropriate page
-                Backbone.history.start({pushState: true, root: '/'});
-
-                // mark us are "ready" this covers events coming from the API that cause
-                // errors because the values used to look up models don't yet exist.
-                self.ready = true;
-
-                // start loading sounds
-                app.loadSounds();
-            }
-        });
+        // init our main view
+        this.view = new MainView({model: me});
 
         // init and configure our sound effects module
         this.sm = new SoundEffectManager();
 
-        // init our URL handlers and the history tracker
-        new Router();
-        this.history = Backbone.history;
+        // we have what we need, we can now start our router and show the appropriate page
+        Backbone.history.start({pushState: true, root: '/'});
+
+        // mark us are "ready" this covers events coming from the API that cause
+        // errors because the values used to look up models don't yet exist.
+        self.ready = true;
+
+        // start loading sounds
+        //app.loadSounds();
+
 
         return this;
     },
@@ -7464,11 +7456,7 @@ module.exports = {
                 ['AB06-deactivate-01.mp3', 'deactivate'],
                 ['AB06-dragndrop_task.mp3', 'delegate'],
                 ['AB06-new_task.mp3', 'newTask'],
-                //['AB06-offline3.mp3', 'offline'],
-                //['AB06-online.mp3', 'online'],
                 ['AB06-receive_mentioned_B2.mp3', 'mentioned'],
-                //['AB06-receive.mp3', 'receive'],
-                //['AB06-send.mp3', 'send'],
                 ['AB06-task_received.mp3', 'taskReceived']
             ];
         // gradually load our sounds
@@ -7482,11 +7470,7 @@ module.exports = {
     getModel: function (type, id, namespace) {
         return Strict.registry.lookup(type, id, namespace);
     },
-    // gets the member object that represents the logged in user from
-    // the current active team.
-    getMeMember: function () {
-        return app.currentTeam && app.currentTeam.getMe();
-    },
+
     // This is how you navigate around the app.
     // this gets called by a global click handler that handles
     // all the <a> tags in the app.
@@ -7539,13 +7523,6 @@ module.exports = {
         // to start with the active class already before appending to DOM.
         container.append(view.render(animation === 'none').el);
         view.show(animation);
-
-        this.updateNavPosition();
-    },
-    // This is how we always open the help window since
-    // it will keep current page context in mind.
-    openHelpWindow: function (url) {
-        window.open(url || app.currentPage.helpUrl || '/help', '_blank');
     },
     // this can only be called once and is used to track loading statistics
     reportLoadStats: function () {
@@ -7557,124 +7534,6 @@ module.exports = {
 
         tracking.identify(me);
         tracking.track('webAppLoaded', cleaned);
-    },
-    // sets page indicator to the right position
-    updateNavPosition: function () {
-        var path = window.location.pathname,
-            found = false;
-
-        // loop through all nav items for all teams figure out
-        // which nav item should be highlighted and set the nav
-        // position
-        app.teams.each(function (team) {
-            var navItems = team.navItems,
-                navPosition = navItems.setActiveForPath(path);
-
-            if (navPosition !== '') {
-                me.set({navPosition: navPosition}, {silent: true});
-                found = true;
-            }
-        });
-
-        // if we don't find a URL match, just mark set it as blank
-        if (!found) {
-            me.set({navPosition: undefined}, {silent: true});
-        }
-
-        // always trigger the change handler (this covers back button)
-        me.trigger('change:navPosition', me, me.navPosition);
-    },
-    // this lets you navigate to a page at a certain position in
-    // the navigation menu for the current team. This is at the team level.
-    showPageByPosition: function (position) {
-        var counter = 0,
-            navItems = app.currentTeam.navItems,
-            navItemsLength = navItems.length,
-            found = false;
-        if (position === 0) {
-            app.navigate(app.currentTeam.url + '/notifications');
-            return;
-        }
-        if (position < 0) {
-            this.showPageByPosition(navItemsLength + position);
-            return;
-        }
-        if (position === navItemsLength) {
-            this.showPageByPosition(0);
-            return;
-        }
-        if (position >= navItemsLength) {
-            return;
-        }
-        navItems.each(function (item) {
-            if (counter === position) {
-                found = true;
-                app.navigate(item.get('url'));
-            }
-            counter++;
-        });
-    },
-    // Shows next page using the nav order in the team menu
-    showNextPage: function () {
-        this.showPageByPosition((me.get('navPosition') || 0) + 1);
-    },
-    // Shows previous page using the nav order in the team menu
-    showPrevPage: function () {
-        this.showPageByPosition((me.get('navPosition') || 0) - 1);
-    },
-    // navigates the app to the next team in the main menu (will wrap).
-    showNextTeam: function () {
-        app.navigate(jumper(app.teams.models, app.currentTeam, 1).slug + '/' + me.username);
-    },
-    // navigates app to the previous team in the menu (will wrap)
-    showPrevTeam: function () {
-        app.navigate(jumper(app.teams.models, app.currentTeam, -1).slug + '/' + me.username);
-    },
-    // calling this will start the loop of checking for sync ups.
-    checkSyncUp: function () {
-        var self = this,
-            now = new Date(),
-            lastDate;
-
-        // if it gets called, but we're already waiting we'll delete the first one
-        if (this.syncUpTimeout) clearTimeout(this.syncUpTimeout);
-
-        // this handles loading. Basically, it will try until it's got something
-        if (!window.me || !window.me.get('username')) {
-            this.syncUpTimeout = setTimeout(function () {
-                self.checkSyncUp();
-            }, 2000);
-            return;
-        } else {
-            lastDate = window.me && me.get('lastSyncUp') ? _.toDate(me.get('lastSyncUp')) : null;
-            // if we're in the middle of the syncup... ignore all this
-            if (!me.get('syncUp')) {
-                if (!lastDate) {
-                    // we're gonna fake it, if it's the first day and they don't have one, it means it's the first login
-                    me.callServerMethod('recordSyncUp');
-                //} else if (true) {
-                } else if ((lastDate.getDate() !== now.getDate() || lastDate.getMonth() !== now.getMonth()) && now.getHours() > 4) {
-                    // run the sync up
-                    //view.syncUpView.nextStep();
-                }
-            }
-
-            // run it again in a bit
-            this.syncUpTimeout = setTimeout(function () {
-                self.checkSyncUp();
-            }, 1000 * 60 * 60); // every hour
-        }
-    },
-    snoozeSyncup: function () {
-        var self = this;
-
-        // clear current timeout
-        clearTimeout(this.syncUpTimeout);
-
-        // run it again in a bit
-        this.syncUpTimeout = setTimeout(function () {
-            self.checkSyncUp();
-        }, 1000 * 60 * 60); // every hour
     }
 };
 }, "helpers/metrics": function(exports, require, module) {/*
@@ -8194,13 +8053,13 @@ module.exports = PageView.extend({
     }
 });
 }, "pages/base": function(exports, require, module) {// base view for pages
-var BaseView = require('views/base'),
+var StrictView = require('strictview'),
     _ = require('underscore'),
     templates = require('templates'),
     key = require('keymaster');
 
 
-module.exports = BaseView.extend({
+module.exports = StrictView.extend({
     // register keyboard handlers
     registerKeyboardShortcuts: function () {
         var self = this;
@@ -8214,15 +8073,9 @@ module.exports = BaseView.extend({
         key.deleteScope(this.cid);
     },
     show: function (animation) {
-        // deselect all selected items
-        me.deselectAll();
-
-        if (!me.keyboardShortcutMode) this.$('.mainPageInput').focus();
-
         // register page-specific keyboard shortcuts
         this.registerKeyboardShortcuts();
-        // unfocus the focused task and all selected items
-        me.set({focusedItem: null, selectedItems: []});
+
         // scroll page to top
         $('body').scrollTop(0);
 
@@ -8234,18 +8087,12 @@ module.exports = BaseView.extend({
 
         // set the class so it comes into view
         this.$el.addClass('active');
+
         // store reference to current page
         app.currentPage = this;
-        // set the omnibox placeholder
-        me.set({
-            omniPlaceholder: util.getOrCallProperty(this, 'omni'),
-            omniUser: util.getOrCallProperty(this, 'omniUser')
-        });
-        // set the headerClass
-        $('header').addClass(util.getOrCallProperty(this, 'headerClass'));
 
         // set the document title
-        document.title = util.getOrCallProperty(this, 'title') + ' • &!';
+        document.title = _.result(this, 'title') + ' • &!';
         // trigger an event to the page model in case we want to respond
         this.trigger('pageloaded');
         return this;
@@ -8253,7 +8100,7 @@ module.exports = BaseView.extend({
     hide: function () {
         var self = this;
         // remove the headerClass
-        $('header').removeClass(util.getOrCallProperty(this, 'headerClass'));
+        $('header').removeClass(_.result(this, 'headerClass'));
         // hide the page
         this.$el.removeClass('active');
         // tell the model we're bailing
@@ -8276,7 +8123,7 @@ module.exports = BaseView.extend({
         return this;
     }
 });
-}, "pages/chatHistory": function(exports, require, module) {var PageView = require('pages/base'),
+}, "pages/home": function(exports, require, module) {var PageView = require('pages/base'),
     templates = require('templates');
 
 
@@ -8292,216 +8139,44 @@ module.exports = PageView.extend({
         return this;
     }
 });
-}, "router": function(exports, require, module) {var Backbone = require('backbone');
+}, "pages/pageOne": function(exports, require, module) {}, "pages/pageTwo": function(exports, require, module) {}, "router": function(exports, require, module) {var Backbone = require('backbone');
 
 
 module.exports = Backbone.Router.extend({
     routes: {
         '': 'home',
-        'settings': 'settings',
-        '404': 'fourOhFour',
-        'app': 'home',
-        '&!': 'home',
-        '&!/': 'home',
-        ':slug': 'teamRouter',
-        ':slug/dashboard': 'teamOverview',
-        ':slug/notifications': 'notifications',
-        ':slug/shipped': 'teamOverview',
-        ':slug/watched': 'watched',
-        ':slug/chat': 'chat',
-        ':slug/chat/:date': 'chatHistory',
-        ':slug/chat/:date/*:id': 'chatHistory',
-        ':slug/members': 'members',
-        ':slug/task/:taskid': 'memberTaskDetail',
-        ':slug/:slug': 'plainMemberRedirect',
-        ':slug/:slug/tasks': 'member',
-        ':slug/:slug/chat': 'member',
-        ':slug/:slug/shipped': 'member',
-        ':slug/:slug/latered': 'member'
+        'one': 'pageOne',
+        'two': 'pageTwo',
+        '404': 'fourOhFour'
     },
 
     // ------- ROUTE HANDLERS ---------
     home: function () {
-        app.navigate(app.teams.first().chatUrl);
-    },
-
-    teamRouter: function (slug) {
-        var team = this.getTeam(slug);
-        if (!team) return this.fourOhFour();
-        app.navigate(team.lastUrl);
-    },
-
-    notifications: function (teamSlug) {
-        var View = require('pages/notifications'),
-            team = this.getTeam(teamSlug),
-            // we don't want to animate if it's just a different 'subpage'
-            animationType = (app.currentPage && app.currentPage.type === 'watched' && app.currentPage.model === team) ? 'none' : 'normal';
-
-        if (!team) return this.fourOhFour();
-
-        app.renderPage(new View({
-            model: team,
-            collection: team.notifications
-        }), animationType);
-    },
-
-    watched: function (teamSlug) {
-        var View = require('pages/watched'),
-            team = this.getTeam(teamSlug),
-            // we don't want to animate if it's just a different 'subpage'
-            animationType = (app.currentPage && app.currentPage.type === 'notifications' && app.currentPage.model === team) ? 'none' : 'normal';
-
-        if (!team) return this.fourOhFour();
-
-        app.renderPage(new View({
-            model: team,
-            collection: team.tasks,
-        }), animationType);
-    },
-
-    chat: function (slug) {
-        var team = this.getTeam(slug);
-        if (!team) return this.fourOhFour();
-        app.renderPage(team.getChatPage());
-    },
-
-    chatHistory: function (slug, dateString, messageId) {
-        var View = require('pages/chatHistory'),
-            team = this.getTeam(slug),
-            beginDate = Date.create(decodeURIComponent(dateString));
-
-        if (!team) return this.fourOhFour();
-
-        if (beginDate instanceof Date) {
-            app.renderPage(new View({
-                model: team,
-                beginDate: beginDate,
-                selectedId: messageId
-            }));
-        } else {
-            app.navigate('/');
-        }
-    },
-
-    members: function (slug) {
-        var View = require('pages/teamOverview'),
-            team = this.getTeam(slug);
-
-        if (!team) return this.fourOhFour();
-
-        app.renderPage(new View({
-            model: team,
-            collection: team.members
-        }));
-    },
-
-    settings: function (slug) {
-        var View = require('pages/settings');
+        var View = require('pages/home');
         app.renderPage(new View({
             model: me
         }));
     },
 
-    plainMemberRedirect: function (teamSlug, memberSlug) {
-        var team = this.getTeam(teamSlug),
-            member = team.getUser(memberSlug),
-            next = member.lastPage || 'tasks';
-
-        if (!team || !member) return this.fourOhFour();
-
-        // we want to trigger the next route, but not store this current one
-        // as part of the "back" history.
-        this.navigate(member.url + '/' + next, {trigger: true, replace: true});
-    },
-
-    member: function (teamSlug, memberSlug) {
-        var pathArray = window.location.pathname.split('/'),
-            team = this.getTeam(teamSlug),
-            member = team.getUser(memberSlug),
-            subPage = pathArray[3],
-            BaseView,
-            View;
-
-        if (!team || !member) return this.fourOhFour();
-
-        // handle 'me' cases
-        if (member.me) {
-            return this.myTasks(teamSlug);
-        }
-
-        BaseView = require('pages/member.base');
-        View = require('pages/member.' + subPage);
-
-        // save last member state
-        member.lastPage = subPage;
-
-        // make sure our nav items are in order
-        team.navItems.getOrCreateForMember(member);
-
-        if (subPage === 'chat') {
-            app.renderPage(member.getChatPage());
-        } else {
-            app.renderPage(new View({
-                model: member,
-                collection: team.tasks,
-                subPage: subPage
-            }));
-        }
-    },
-
-    myTasks: function (teamSlug) {
-        var pathArray = window.location.pathname.split('/'),
-            BaseView = require('pages/member.base'),
-            team = this.getTeam(teamSlug),
-            me = team.getMe(),
-            subPage = pathArray[3] || 'tasks',
-            View = require('pages/my.' + subPage);
-
-        if (!team) return this.fourOhFour();
-
+    pageOne: function () {
+        var View = require('pages/home');
         app.renderPage(new View({
-            model: me,
-            collection: team.tasks,
-            subPage: subPage
+            model: me
         }));
     },
 
-    memberTaskDetail: function (teamSlug, taskId) {
-        var View = require('pages/taskDetail'),
-            team = this.getTeam(teamSlug);
-
-        if (!team) return this.fourOhFour();
-
-        // we may or may not have the task, so we just pass it in and try to get it from the
-        // view.
+    pageTwo: function () {
+        var View = require('pages/home');
         app.renderPage(new View({
-            team: team,
-            taskId: taskId
+            model: me
         }));
     },
 
     fourOhFour: function () {
-        var View = require('pages/404');
+        var View = require('pages/home');
         app.renderPage(new View({
             model: me
         }));
-    },
-
-    // ------- UTILS ---------
-
-    // fetching team based on slug
-    // sets active team so page views
-    // can know it
-    getTeam: function (slug) {
-        var team = app.teams.findTeam(slug),
-            last = window.location.pathname.split('/').slice(2).join('/');
-
-        // make sure we've loaded tasks for this team
-        team.tasks.fetch();
-        me.activeTeam = team.id;
-        // store the team page
-        if (last) team.lastPage = last;
-        return team;
     }
 });
 }, "views/collectionView": function(exports, require, module) {var BaseView = require('views/base'),
@@ -8717,8 +8392,10 @@ module.exports = BaseView.extend({
     initialize: function () {
         // render when document ready;
         $(_.bind(this.render, this));
+        app.history.on('route', this.updateActiveNav, this);
     },
     events: {
+        'click a[href]': 'handleClick'
     },
     classBindings: {
     },
@@ -8736,6 +8413,38 @@ module.exports = BaseView.extend({
         return this;
     },
 
+    handleClick: function (e) {
+        var t = $(e.target),
+            aEl = t.is('a') ? t[0] : t.closest('a')[0],
+            local = window.location.host === aEl.host,
+            path = aEl.pathname.slice(1);
+
+        // if the window location host and target host are the
+        // same it's local, else, leave it alone
+        if (!app.eventsDisabled) {
+            if (local) {
+                app.navigate(path);
+                return false;
+            } else {
+                app.handleExternalLinkClick(e);
+            }
+        }
+    },
+
+    updateActiveNav: function () {
+        var pathname = window.location.pathname;
+        $('.nav a').each(function () {
+            var navArray = _.compact($(this).attr('href').split('/')).join('/').toLowerCase(),
+                pathArray = _.compact(pathname.split('/')).join('/').toLowerCase();
+
+            if (pathArray === navArray) {
+                $(this).parent().addClass('active');
+            } else {
+                $(this).parent().removeClass('active');
+            }
+        });
+    },
+
     //////////////// UTIL METHODS ////////////////////
     createGlobalNavShortcuts: function () {
         var i = 1,
@@ -8749,14 +8458,6 @@ module.exports = BaseView.extend({
                 }
             };
         }
-        while (i < 10) {
-            key(i.toString(), ifEmpty(_.bind(app.showPageByPosition, app, i)));
-            i++;
-        }
-        key('0', ifEmpty(_.bind(app.showPageByPosition, app, 10)));
-        key('`', ifEmpty(_.bind(app.showPageByPosition, app, 0)));
-        key('right, l', ifEmpty(_.bind(app.showNextPage, app)));
-        key('left, h', ifEmpty(_.bind(app.showPrevPage, app)));
         // blur input on 'esc'
         key('esc', function (e) {
             me.keyboardShortcutMode = true;

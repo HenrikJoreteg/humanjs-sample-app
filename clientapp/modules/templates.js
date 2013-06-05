@@ -41,8 +41,8 @@ exports.pages.fourOhFour = function anonymous(locals) {
     return buf.join("");
 };
 
-// homepage.jade compiled template
-exports.pages.homepage = function anonymous(locals) {
+// home.jade compiled template
+exports.pages.home = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
         buf.push('<section class="page home"><h2>Home</h2><p>If you view source you\'ll see pretty things. </p></section>');
@@ -50,8 +50,8 @@ exports.pages.homepage = function anonymous(locals) {
     return buf.join("");
 };
 
-// pageOne.jade compiled template
-exports.pages.pageOne = function anonymous(locals) {
+// one.jade compiled template
+exports.pages.one = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
         buf.push('<section class="page pageOne"><h2>Page 1</h2></section>');
@@ -59,8 +59,8 @@ exports.pages.pageOne = function anonymous(locals) {
     return buf.join("");
 };
 
-// pageTwo.jade compiled template
-exports.pages.pageTwo = function anonymous(locals) {
+// two.jade compiled template
+exports.pages.two = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
         buf.push('<section class="page pageTwo"><h2>Page 2</h2></section>');

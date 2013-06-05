@@ -3,7 +3,7 @@ var PageView = require('pages/base'),
 
 
 module.exports = PageView.extend({
-    template: templates.pages.home,
+    template: templates.pages.one,
     render: function () {
         this.basicRender();
         return this;
