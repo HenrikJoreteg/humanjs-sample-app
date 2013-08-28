@@ -8,20 +8,5 @@
     "undef": true,
     "browser": true,
     "es5": true,
-    "trailing": true,
-    "predef": [
-        "app",
-        "me",
-        "$",
-        "FormBot",
-        "socket",
-        "confirm",
-        "alert",
-        "require",
-        "__dirname",
-        "process",
-        "exports",
-        "Buffer",
-        "module"
-    ]
+    "trailing": true
 }

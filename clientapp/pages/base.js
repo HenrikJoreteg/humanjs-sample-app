@@ -1,8 +1,7 @@
 // base view for pages
-var StrictView = require('strictview'),
-    _ = require('underscore'),
-    templates = require('templates'),
-    key = require('keymaster');
+var StrictView = require('strictview');
+var _ = require('underscore');
+//var key = require('keymaster');
 
 
 module.exports = StrictView.extend({
@@ -20,7 +19,7 @@ module.exports = StrictView.extend({
     },
     show: function (animation) {
         // register page-specific keyboard shortcuts
-        this.registerKeyboardShortcuts();
+        //this.registerKeyboardShortcuts();
 
         // scroll page to top
         $('body').scrollTop(0);
@@ -58,14 +57,10 @@ module.exports = StrictView.extend({
             this.detached = true;
         } else {
             // unbind all events bound for this view
-            this.desist({quick: true});
-            // remove the element once it's animated out
-            _.delay(function () {
-                $(self.el).unbind().remove();
-            }, 500);
+            this.animateRemove();
         }
         // unbind page-specific keyboard shortcuts
-        this.unregisterKeyboardShortcuts();
+        //this.unregisterKeyboardShortcuts();
         return this;
     }
 });

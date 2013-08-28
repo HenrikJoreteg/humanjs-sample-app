@@ -1,4 +1,7 @@
 var Backbone = require('backbone');
+var HomePage = require('./pages/home');
+var PageOne = require('./pages/one');
+var PageTwo = require('./pages/two');
 
 
 module.exports = Backbone.Router.extend({
@@ -10,22 +13,19 @@ module.exports = Backbone.Router.extend({
 
     // ------- ROUTE HANDLERS ---------
     home: function () {
-        var View = require('pages/home');
-        app.renderPage(new View({
+        app.renderPage(new HomePage({
             model: me
         }));
     },
 
     pageOne: function () {
-        var View = require('pages/one');
-        app.renderPage(new View({
+        app.renderPage(new PageOne({
             model: me
         }));
     },
 
     pageTwo: function () {
-        var View = require('pages/two');
-        app.renderPage(new View({
+        app.renderPage(new PageTwo({
             model: me
         }));
     }

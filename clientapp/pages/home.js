@@ -1,11 +1,11 @@
-var PageView = require('pages/base'),
-    templates = require('templates');
+var PageView = require('./base');
+var templates = require('../templates');
 
 
 module.exports = PageView.extend({
     template: templates.pages.home,
     render: function () {
-        this.basicRender();
+        this.renderAndBind();
         return this;
     }
 });

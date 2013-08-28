@@ -37,7 +37,5 @@ module.exports = StrictModel.extend({
                 return (this.firstName.charAt(0) + this.lastName.charAt(0)).toUpperCase();
             }
         }
-    },
-    session: {
     }
 });

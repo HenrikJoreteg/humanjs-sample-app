@@ -1,45 +1,39 @@
 /*global nm*/
-// This app view is responsible for rendering all content that goes into the
-// <body>. It's initted right away and renders iteslf on DOM ready.
+// This app view is responsible for rendering all content that goes into
+// <html>. It's initted right away and renders iteslf on DOM ready.
 
 // This view also handles all the 'document' level events such as keyboard shortcuts.
-var BaseView = require('strictview'),
-    _ = require('underscore'),
-    templates = require('templates'),
-    key = require('keymaster'),
-    tracking = require('helpers/metrics');
+var BaseView = require('strictview');
+var _ = require('underscore');
+var templates = require('../templates');
+//var key = require('keymaster');
+var tracking = require('../helpers/metrics');
 
 
 module.exports = BaseView.extend({
+    template: templates.body,
     initialize: function () {
-        // render when document ready;
-        $(_.bind(this.render, this));
+        // this marks the correct nav item selected
         app.history.on('route', this.updateActiveNav, this);
     },
     events: {
         'click a[href]': 'handleClick'
     },
-    classBindings: {
-    },
-    imageBindings: {
-    },
     render: function () {
-        this.setElement($('body')[0]);
-        $(this.el).prepend(templates.app(me.toTemplate));
-
-        this.createGlobalNavShortcuts();
-
-        // handles delegated view bindings
-        this.delegateEvents();
-        this.handleBindings();
+        this.renderAndBind({me: me});
+        //this.createGlobalNavShortcuts();
         return this;
     },
 
     handleClick: function (e) {
+        e.preventDefault();
         var t = $(e.target),
             aEl = t.is('a') ? t[0] : t.closest('a')[0],
             local = window.location.host === aEl.host,
             path = aEl.pathname.slice(1);
+
+        console.log('HERE');
+        debugger;
 
         // if the window location host and target host are the
         // same it's local, else, leave it alone

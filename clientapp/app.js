@@ -1,16 +1,15 @@
-/*global window SoundMachine NotificationMachine app me */
-var MainView = require('views/main'),
-    stats = require('loading-stats'),
-    Strict = require('strictmodel'),
-    Backbone = require('backbone'),
-    _ = require('underscore'),
-    Router = require('router'),
-    logger = require('andlog'),
-    async = require('async'),
-    tracking = require('helpers/metrics'),
-    Me = require('models/me'),
-    config = require('clientconfig'),
-    SoundEffectManager = require('sound-effect-manager');
+/*global window app me */
+var stats = require('loading-stats');
+var Strict = require('strictmodel');
+var Backbone = require('backbone');
+var _ = require('underscore');
+var logger = require('andlog');
+var config = require('clientconfig');
+
+var Router = require('./router');
+var tracking = require('./helpers/metrics');
+var MainView = require('./views/main');
+var Me = require('./models/me');
 
 
 module.exports = {
@@ -28,43 +27,20 @@ module.exports = {
         this.router = new Router();
         this.history = Backbone.history;
 
-        // init our main view
-        this.view = new MainView({model: me});
-
-        // init and configure our sound effects module
-        this.sm = new SoundEffectManager();
-
-        // we have what we need, we can now start our router and show the appropriate page
-        Backbone.history.start({pushState: true, root: '/'});
-
-        // mark us are "ready" this covers events coming from the API that cause
-        // errors because the values used to look up models don't yet exist.
-        self.ready = true;
-
-        // start loading sounds
-        //app.loadSounds();
-
-
-        return this;
-    },
-    loadSounds: function () {
-        var self = this,
-            sounds = [
-                ['rocket.mp3', 'rocket'],
-                ['AB06-activate-01.mp3', 'activate'],
-                ['AB06-deactivate-01.mp3', 'deactivate'],
-                ['AB06-dragndrop_task.mp3', 'delegate'],
-                ['AB06-new_task.mp3', 'newTask'],
-                ['AB06-receive_mentioned_B2.mp3', 'mentioned'],
-                ['AB06-task_received.mp3', 'taskReceived']
-            ];
-        // gradually load our sounds
-        sounds.forEach(function (sound, index) {
-            app.jobs.push(function (cb) {
-                self.sm.loadFile('/sounds/' + sound[0], sound[1], 0, cb);
+        // wait for document ready to render our main view
+        // this ensures the document has a body, etc.
+        $(function () {
+            // init our main view
+            self.view = new MainView({
+                model: me,
+                el: document.body
             });
+            self.view.render();
+            // we have what we need, we can now start our router and show the appropriate page
+            self.history.start({pushState: true, root: '/'});
         });
     },
+
     // returns any model based on it's server ID.
     getModel: function (type, id, namespace) {
         return Strict.registry.lookup(type, id, namespace);
@@ -122,16 +98,8 @@ module.exports = {
         // to start with the active class already before appending to DOM.
         container.append(view.render(animation === 'none').el);
         view.show(animation);
-    },
-    // this can only be called once and is used to track loading statistics
-    reportLoadStats: function () {
-        var cleaned;
-        stats.recordTime('fully_loaded');
-
-        cleaned = stats.get();
-        logger.log('load stats', JSON.stringify(cleaned, null, 2));
-
-        tracking.identify(me);
-        tracking.track('webAppLoaded', cleaned);
     }
 };
+
+// run it
+module.exports.blastoff();
