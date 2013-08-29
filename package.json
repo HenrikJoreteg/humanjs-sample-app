@@ -16,15 +16,14 @@
     "getconfig": "0.0.5",
     "jade": "0.35.0",
     "loading-stats": "0.0.2",
-    "moonboots": "0.4.0",
+    "moonboots": "0.4.1",
     "helmet": "0.1.0",
     "semi-static": "0.0.4",
     "strictmodel": "0.1.1",
     "strictview": "1.0.1",
     "templatizer": "0.1.2",
     "underscore": "1.5.1",
-    "favicon-setter": "0.1.1",
-    "cssmin": "0.4.1"
+    "favicon-setter": "0.1.1"
   },
   "devDependencies": {
     "precommit-hook": "0.3.6"
