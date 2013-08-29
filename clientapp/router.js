@@ -2,14 +2,14 @@
 var Backbone = require('backbone');
 var HomePage = require('./pages/home');
 var CollectionDemo = require('./pages/collectionDemo');
-var PageTwo = require('./pages/two');
+var InfoPage = require('./pages/info');
 
 
 module.exports = Backbone.Router.extend({
     routes: {
         '': 'home',
         'collections': 'collectionDemo',
-        'two': 'pageTwo'
+        'info': 'info'
     },
 
     // ------- ROUTE HANDLERS ---------
@@ -26,8 +26,8 @@ module.exports = Backbone.Router.extend({
         }));
     },
 
-    pageTwo: function () {
-        app.renderPage(new PageTwo({
+    info: function () {
+        app.renderPage(new InfoPage({
             model: me
         }));
     }

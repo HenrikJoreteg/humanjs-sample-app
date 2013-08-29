@@ -12,7 +12,7 @@ exports.pages = {};
 exports.body = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        buf.push('<body><div class="container"><div class="navbar"><div class="navbar-inner"><a href="#" class="brand">human.js - sample</a><ul class="nav"><li><a href="/">home</a></li><li><a href="/collections">collection demo</a></li><li><a href="/two">page two</a></li></ul></div></div><section id="pages"></section></div></body>');
+        buf.push('<body><div class="container"><div class="navbar"><div class="navbar-inner"><a href="#" class="brand">human.js - sample</a><ul class="nav"><li><a href="/">home</a></li><li><a href="/collections">collection demo</a></li><li><a href="/info">more info</a></li></ul></div></div><section id="pages"></section></div></body>');
     }
     return buf.join("");
 };
@@ -53,11 +53,11 @@ exports.pages.home = function anonymous(locals) {
     return buf.join("");
 };
 
-// two.jade compiled template
-exports.pages.two = function anonymous(locals) {
+// info.jade compiled template
+exports.pages.info = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        buf.push('<section class="page pageTwo"><h2>Page 2</h2></section>');
+        buf.push('<section class="page pageTwo"><h2>More Info</h2><p>This is a demo app by <a href="http://twitter.com">Henrik Joreteg</a>.</p><h4>Relevant links:</h4><ul><li> <a href="http://humanjavascript.com">human javascript</a> the book</li><li> <a href="http://humanjavascript.com">github repo </a> for this app</li><li> <a href="http://humanjavascript.com">&yet</a> the company behind this effort</li></ul><h4>Apps Built this way</h4><ul><li> <a href="http://andbang.com">And Bang</a> Team same-pagification tool. Realtime chat + task management</li><li> <a href="http://talky.io">Talky </a> Free, zero-setup, no-account, peer-to-peer encrypted video calls</li></ul></section>');
     }
     return buf.join("");
 };
