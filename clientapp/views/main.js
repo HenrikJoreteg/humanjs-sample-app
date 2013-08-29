@@ -21,6 +21,9 @@ module.exports = BaseView.extend({
         'click a[href]': 'handleLinkClick'
     },
     render: function () {
+        // some additional stuff we want to add to the document head
+        $('head').append(templates.head());
+        // main renderer
         this.renderAndBind({me: me});
         // setting a favicon for fun (note, it's dyanamic)
         setFavicon('/images/ampersand.png');

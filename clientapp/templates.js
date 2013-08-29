@@ -17,6 +17,15 @@ exports.body = function anonymous(locals) {
     return buf.join("");
 };
 
+// head.jade compiled template
+exports.head = function anonymous(locals) {
+    var buf = [];
+    with (locals || {}) {
+        buf.push('<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/><meta name="apple-mobile-web-app-capable" content="yes"/>');
+    }
+    return buf.join("");
+};
+
 // person.jade compiled template
 exports.includes.person = function anonymous(locals) {
     var buf = [];
