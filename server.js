@@ -29,7 +29,7 @@ app.configure(function () {
 
 var clientApp = new Moonboots({
     main: __dirname + '/clientapp/app.js',
-    developmentMode: true,
+    developmentMode: config.isDev,
     libraries: [
         __dirname + '/clientapp/libraries/zepto.js'
     ],
@@ -53,6 +53,14 @@ app.set('view engine', 'jade');
 app.get('/support', views.render('about/support'));
 app.get('/404', views.render('about/404'));
 app.get('/500', views.render('about/500'));
+
+// our fake little API
+var api = require('./fakeApi');
+app.get('/api/people', api.list);
+app.get('/api/people/:id', api.get);
+app.delete('/api/people/:id', api.delete);
+app.put('/api/people/:id', api.update);
+app.post('/api/people', api.add);
 
 // the help mini-site
 app.get('/help*', semiStatic({

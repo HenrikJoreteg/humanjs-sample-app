@@ -10,6 +10,7 @@ var Router = require('./router');
 var tracking = require('./helpers/metrics');
 var MainView = require('./views/main');
 var Me = require('./models/me');
+var People = require('./models/people');
 
 
 module.exports = {
@@ -22,6 +23,7 @@ module.exports = {
         var self = window.app = this;
 
         window.me = new Me();
+        this.people = new People();
 
         // init our URL handlers and the history tracker
         this.router = new Router();
@@ -38,6 +40,8 @@ module.exports = {
             self.view.render();
             // we have what we need, we can now start our router and show the appropriate page
             self.history.start({pushState: true, root: '/'});
+
+            self.people.fetch();
         });
     },
 
