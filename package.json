@@ -23,7 +23,8 @@
     "strictview": "1.0.1",
     "templatizer": "0.1.2",
     "underscore": "1.5.1",
-    "favicon-setter": "0.1.1"
+    "favicon-setter": "0.1.1",
+    "cssmin": "0.4.1"
   },
   "devDependencies": {
     "precommit-hook": "0.3.6"
