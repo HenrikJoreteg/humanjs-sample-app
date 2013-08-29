@@ -5,8 +5,6 @@ var Moonboots = require('moonboots');
 var config = require('getconfig');
 var semiStatic = require('semi-static');
 var templatizer = require('templatizer');
-
-var views = require('./views');
 var app = express();
 
 app.configure(function () {
@@ -49,10 +47,6 @@ var clientApp = new Moonboots({
 
 // use jade (for now)
 app.set('view engine', 'jade');
-
-app.get('/support', views.render('about/support'));
-app.get('/404', views.render('about/404'));
-app.get('/500', views.render('about/500'));
 
 // our fake little API
 var api = require('./fakeApi');
