@@ -50,7 +50,7 @@ exports.list = function (req, res) {
 
 exports.add = function (req, res) {
     var person = req.body;
-    person.id++;
+    person.id = id++;
     people.push(person);
     res.status(201).send(person);
 };

@@ -12,22 +12,25 @@ exports.pages = {};
 exports.body = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        buf.push('<body><div class="container"><div class="navbar"><div class="navbar-inner"><a href="#" class="brand">human.js - sample</a><ul class="nav"><li><a href="/">home</a></li><li><a href="/one">page one</a></li><li><a href="/two">page two</a></li></ul></div></div><section id="pages"></section></div></body>');
+        buf.push('<body><div class="container"><div class="navbar"><div class="navbar-inner"><a href="#" class="brand">human.js - sample</a><ul class="nav"><li><a href="/">home</a></li><li><a href="/collections">collection demo</a></li><li><a href="/two">page two</a></li></ul></div></div><section id="pages"></section></div></body>');
     }
     return buf.join("");
 };
 
-// watchedTask.jade compiled template
-exports.includes.watchedTask = function anonymous(locals) {
+// person.jade compiled template
+exports.includes.person = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
-        buf.push("<li" + jade.attrs({
-            id: id,
-            "class": "watchedTask task watched"
-        }, {
-            id: true,
-            "class": true
-        }) + '><!-- task permalink--><span class="title">' + ((jade.interp = taskTitleHtml) == null ? "" : jade.interp) + "</span></li>");
+        buf.push('<li class="person"><img width="40" height="40" class="avatar"/><span class="name"></span><span> <a href="#" class="delete">delete</a></span></li>');
+    }
+    return buf.join("");
+};
+
+// collectionDemo.jade compiled template
+exports.pages.collectionDemo = function anonymous(locals) {
+    var buf = [];
+    with (locals || {}) {
+        buf.push('<section class="page pageOne"><h2>Collection demo</h2><p>Intelligently rendering collections can be a bit tricky. </p><p><a href="https://github.com/henrikjoreteg/strictview">StrictView\'s</a> <code>renderCollection()</code> method makes it sipmle.</p><p>The only code requried to manage the collection is:</p><pre><code>this.renderCollection(\n   this.collection, \n   PersonView, \n   this.$(\'.people\')[0]\n);</code></pre><h3>People container:</h3><div class="people"></div><p>Try it by clicking the buttons</p><div class="buttons"><button class="btn reset">.reset()</button><button class="btn fetch">.fetch()</button><button class="btn shuffle">.shuffle()</button><button class="btn add">Generate Random Person</button></div><p>Events are always managed so you don\'t get any leaks.</p></section>');
     }
     return buf.join("");
 };
@@ -46,15 +49,6 @@ exports.pages.home = function anonymous(locals) {
     var buf = [];
     with (locals || {}) {
         buf.push('<section class="page home"><h2>Welcome to the demo app</h2><p>If you "view source" you\'ll see it\'s 100% client rendered.</p><p>Click around the site using the nav bar at the top. </p><p>Things to note:<ul><li>The url changes, no requests are made to the server.</li><li>Refreshing the page will always get you back to the same page</li><li>Page changes are nearly instantaneous</li><li>In development mode, you don\'t need to restart the server to see changes, just edit and refresh.</li><li>In production mode, it will serve minfied, uniquely named files with super agressive cache headers. To test:<ul> <li>in dev_config.json set <code>isDev</code> to <code>false</code>.</li><li>restart the server.</li><li>view source and you\'ll see minified css and js files with unique names.</li><li>open the "network" tab in chrome dev tools (or something similar). You\'ll also want to make sure you haven\'t disabled your cache.</li><li>without hitting "refresh" load the app again (selecting current URL in url bar and hitting "enter" works great).</li><li>you should now see that the JS and CSS files were both served from cache without making any request to the server at all.</li></ul></li></ul></p></section>');
-    }
-    return buf.join("");
-};
-
-// one.jade compiled template
-exports.pages.one = function anonymous(locals) {
-    var buf = [];
-    with (locals || {}) {
-        buf.push('<section class="page pageOne"><h2>Page 1</h2></section>');
     }
     return buf.join("");
 };

@@ -3,10 +3,9 @@ var templates = require('../templates');
 
 
 module.exports = PageView.extend({
-    title: 'Home',
+    title: 'home',
     template: templates.pages.home,
     render: function () {
         this.renderAndBind();
-        return this;
     }
 });

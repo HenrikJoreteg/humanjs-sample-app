@@ -40,8 +40,6 @@ module.exports = {
             self.view.render();
             // we have what we need, we can now start our router and show the appropriate page
             self.history.start({pushState: true, root: '/'});
-
-            self.people.fetch();
         });
     },
 

@@ -17,6 +17,12 @@ module.exports = StrictModel.extend({
             fn: function () {
                 return this.firstName + ' ' + this.lastName;
             }
+        },
+        avatar: {
+            deps: ['firstName', 'lastName'],
+            fn: function () {
+                return 'http://robohash.org/' + encodeURIComponent(this.fullName) + '?size=80x80';
+            }
         }
     }
 });

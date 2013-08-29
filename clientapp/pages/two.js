@@ -5,6 +5,5 @@ module.exports = PageView.extend({
     template: templates.pages.two,
     render: function () {
         this.renderAndBind();
-        return this;
     }
 });

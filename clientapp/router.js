@@ -1,14 +1,14 @@
 /*global app, me, $*/
 var Backbone = require('backbone');
 var HomePage = require('./pages/home');
-var PageOne = require('./pages/one');
+var CollectionDemo = require('./pages/collectionDemo');
 var PageTwo = require('./pages/two');
 
 
 module.exports = Backbone.Router.extend({
     routes: {
         '': 'home',
-        'one': 'pageOne',
+        'collections': 'collectionDemo',
         'two': 'pageTwo'
     },
 
@@ -19,9 +19,10 @@ module.exports = Backbone.Router.extend({
         }));
     },
 
-    pageOne: function () {
-        app.renderPage(new PageOne({
-            model: me
+    collectionDemo: function () {
+        app.renderPage(new CollectionDemo({
+            model: me,
+            collection: app.people
         }));
     },
 
