@@ -35,15 +35,6 @@ exports.pages.collectionDemo = function anonymous(locals) {
     return buf.join("");
 };
 
-// fourOhFour.jade compiled template
-exports.pages.fourOhFour = function anonymous(locals) {
-    var buf = [];
-    with (locals || {}) {
-        buf.push('<section class="page fourOhFour"><h2>404</h2></section>');
-    }
-    return buf.join("");
-};
-
 // home.jade compiled template
 exports.pages.home = function anonymous(locals) {
     var buf = [];

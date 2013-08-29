@@ -56,12 +56,6 @@ app.delete('/api/people/:id', api.delete);
 app.put('/api/people/:id', api.update);
 app.post('/api/people', api.add);
 
-// the help mini-site
-app.get('/help*', semiStatic({
-    folderPath: __dirname + '/views/help-site',
-    root: '/help'
-}));
-
 // the test sub site should only be exposed in dev
 if (config.isDev) {
     app.get('/test*', semiStatic({
