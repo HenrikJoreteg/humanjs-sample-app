@@ -17,15 +17,6 @@ exports.body = function anonymous(locals) {
     return buf.join("");
 };
 
-// head.jade compiled template
-exports.head = function anonymous(locals) {
-    var buf = [];
-    with (locals || {}) {
-        buf.push('<link href="/css/bootstrap.css" rel="stylesheet"/><link href="/css/app.css" rel="stylesheet"/>');
-    }
-    return buf.join("");
-};
-
 // watchedTask.jade compiled template
 exports.includes.watchedTask = function anonymous(locals) {
     var buf = [];

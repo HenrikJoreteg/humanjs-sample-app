@@ -16,7 +16,6 @@ app.configure(function () {
         app.use(express.static(__dirname + '/clienttests/assets'));
         app.use(express.static(__dirname + '/clienttests/spacemonkey'));
     }
-    app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
     app.use(express.bodyParser());
     app.use(express.cookieParser());
     // in order to test this with spacemonkey we need frames
@@ -46,10 +45,6 @@ var clientApp = new Moonboots({
 // use jade (for now)
 app.set('view engine', 'jade');
 
-// public stuff
-app.get('/signup', function (req, res) {
-    res.redirect(config.oauth.accountsURL + '/signup', 303);
-});
 app.get('/support', views.render('about/support'));
 app.get('/404', views.render('about/404'));
 app.get('/500', views.render('about/500'));
@@ -71,7 +66,7 @@ if (config.isDev) {
 var clientSettingsMiddleware = function (req, res, next) {
     res.cookie('config', JSON.stringify(config.client));
     next();
-}
+};
 
 app.get('*', clientSettingsMiddleware, clientApp.html());
 

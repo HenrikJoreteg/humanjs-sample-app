@@ -1,3 +1,4 @@
+/*global app, me, $*/
 // base view for pages
 var StrictView = require('strictview');
 var _ = require('underscore');
@@ -7,17 +8,21 @@ var _ = require('underscore');
 module.exports = StrictView.extend({
     // register keyboard handlers
     registerKeyboardShortcuts: function () {
+        /*
         var self = this;
         _.each(this.keyboardShortcuts, function (value, k) {
             // register key handler scoped to this page
             key(k, self.cid, _.bind(self[value], self));
         });
         key.setScope(this.cid);
+        */
     },
     unregisterKeyboardShortcuts: function () {
-        key.deleteScope(this.cid);
+        //key.deleteScope(this.cid);
     },
     show: function (animation) {
+        var self = this;
+
         // register page-specific keyboard shortcuts
         //this.registerKeyboardShortcuts();
 
@@ -28,6 +33,9 @@ module.exports = StrictView.extend({
         if (this.detached) {
             this.$('#pages').append(this.el);
             this.detached = false;
+        } else {
+            // render the view
+            this.render();
         }
 
         // set the class so it comes into view
@@ -37,9 +45,14 @@ module.exports = StrictView.extend({
         app.currentPage = this;
 
         // set the document title
-        document.title = _.result(this, 'title') + ' • &!';
+        document.title = function () {
+            var title = _.result(self, 'title');
+            return title ? title + ' • humanjs' : 'humanjs';
+        }();
+
         // trigger an event to the page model in case we want to respond
         this.trigger('pageloaded');
+
         return this;
     },
     hide: function () {

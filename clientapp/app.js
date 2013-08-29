@@ -1,4 +1,4 @@
-/*global window app me */
+/*global app, me, $*/
 var stats = require('loading-stats');
 var Strict = require('strictmodel');
 var Backbone = require('backbone');
@@ -41,12 +41,7 @@ module.exports = {
         });
     },
 
-    // returns any model based on it's server ID.
-    getModel: function (type, id, namespace) {
-        return Strict.registry.lookup(type, id, namespace);
-    },
-
-    // This is how you navigate around the app.
+        // This is how you navigate around the app.
     // this gets called by a global click handler that handles
     // all the <a> tags in the app.
     // it expects a url without a leading slash.
@@ -56,28 +51,6 @@ module.exports = {
         app.history.navigate(url, true);
     },
 
-    // navigate to the task detail view with the right context set
-    viewTaskDetail: function (task) {
-        if (app.currentPage.template === 'starred') {
-            app.navigate(window.location.pathname.slice(4) + '/' + task.id);
-        } else {
-            app.navigate(task.url);
-        }
-    },
-    // here we can handle external link clicks that we'd like to embed instead.
-    // stubbed out for now.
-    handleExternalLinkClick: function (e) {
-        /*
-        var view;
-
-        switch (e.target.host) {
-
-        case '':
-            // simply add cases here
-            return false;
-        }
-        */
-    },
     // this is what handles all the page rendering and
     // setting the correct page indicator etc.
     // It's done at this so that views don't have to worry
@@ -87,17 +60,18 @@ module.exports = {
     renderPage: function (view, animation) {
         var container = $('#pages');
 
-        // default animation is swap
-        animation || (animation = 'swap');
-
         if (app.currentPage) {
-            app.currentPage.hide(animation);
+            app.currentPage.hide();
             app.trigger('pageunloaded', app.currentPage);
         }
-        // we call render, but if animation is none, we want to tell the view
-        // to start with the active class already before appending to DOM.
-        container.append(view.render(animation === 'none').el);
-        view.show(animation);
+
+        // we call show
+        container.append(view.show().el);
+    },
+
+    // returns any model based on it's server ID.
+    getModel: function (type, id, namespace) {
+        return Strict.registry.lookup(type, id, namespace);
     }
 };
 

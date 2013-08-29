@@ -7,6 +7,6 @@
     "white": true,
     "undef": true,
     "browser": true,
-    "es5": true,
-    "trailing": true
+    "trailing": true,
+    "node": true
 }

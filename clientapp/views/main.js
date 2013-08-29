@@ -1,4 +1,4 @@
-/*global nm*/
+/*global app, me, $*/
 // This app view is responsible for rendering all content that goes into
 // <html>. It's initted right away and renders iteslf on DOM ready.
 
@@ -8,6 +8,7 @@ var _ = require('underscore');
 var templates = require('../templates');
 //var key = require('keymaster');
 var tracking = require('../helpers/metrics');
+var setFavicon = require('favicon-setter');
 
 
 module.exports = BaseView.extend({
@@ -17,23 +18,22 @@ module.exports = BaseView.extend({
         app.history.on('route', this.updateActiveNav, this);
     },
     events: {
-        'click a[href]': 'handleClick'
+        'click a[href]': 'handleLinkClick'
     },
     render: function () {
         this.renderAndBind({me: me});
+        // setting a favicon for fun (note, it's dyanamic)
+        setFavicon('/images/ampersand.png');
         //this.createGlobalNavShortcuts();
         return this;
     },
 
-    handleClick: function (e) {
-        e.preventDefault();
+    handleLinkClick: function (e) {
         var t = $(e.target),
             aEl = t.is('a') ? t[0] : t.closest('a')[0],
             local = window.location.host === aEl.host,
             path = aEl.pathname.slice(1);
 
-        console.log('HERE');
-        debugger;
 
         // if the window location host and target host are the
         // same it's local, else, leave it alone
@@ -45,6 +45,8 @@ module.exports = BaseView.extend({
                 app.handleExternalLinkClick(e);
             }
         }
+
+        return false;
     },
 
     updateActiveNav: function () {
@@ -63,6 +65,7 @@ module.exports = BaseView.extend({
 
     //////////////// UTIL METHODS ////////////////////
     createGlobalNavShortcuts: function () {
+        /*
         var i = 1,
             self = this;
 
@@ -92,5 +95,6 @@ module.exports = BaseView.extend({
         });
         // global help shortcut: '?'
         key('shift+/', ifEmpty(app.openHelpWindow));
+        */
     }
 });

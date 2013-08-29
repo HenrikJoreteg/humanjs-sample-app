@@ -1,3 +1,4 @@
+/*global app, me, $*/
 var Backbone = require('backbone');
 var HomePage = require('./pages/home');
 var PageOne = require('./pages/one');
