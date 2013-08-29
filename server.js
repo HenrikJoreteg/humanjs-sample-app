@@ -4,6 +4,7 @@ var helmet = require('helmet');
 var Moonboots = require('moonboots');
 var config = require('getconfig');
 var semiStatic = require('semi-static');
+var templatizer = require('templatizer');
 
 var views = require('./views');
 var app = express();
@@ -39,7 +40,11 @@ var clientApp = new Moonboots({
     browserify: {
         debug: false
     },
-    server: app
+    server: app,
+    beforeBuild: function () {
+        var clientFolder = __dirname + '/clientapp';
+        templatizer(clientFolder + '/templates', clientFolder + '/templates.js');
+    }
 });
 
 // use jade (for now)
