@@ -1,11 +1,11 @@
 /*global app, me, $*/
 // base view for pages
-var StrictView = require('strictview');
+var HumanView = require('human-view');
 var _ = require('underscore');
 //var key = require('keymaster');
 
 
-module.exports = StrictView.extend({
+module.exports = HumanView.extend({
     // register keyboard handlers
     registerKeyboardShortcuts: function () {
         /*

@@ -1,6 +1,5 @@
 /*global app, me, $*/
 var stats = require('loading-stats');
-var Strict = require('strictmodel');
 var Backbone = require('backbone');
 var _ = require('underscore');
 var logger = require('andlog');
@@ -69,11 +68,6 @@ module.exports = {
 
         // we call show
         container.append(view.show().el);
-    },
-
-    // returns any model based on it's server ID.
-    getModel: function (type, id, namespace) {
-        return Strict.registry.lookup(type, id, namespace);
     }
 };
 

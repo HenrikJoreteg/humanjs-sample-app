@@ -3,7 +3,7 @@
 // <html>. It's initted right away and renders iteslf on DOM ready.
 
 // This view also handles all the 'document' level events such as keyboard shortcuts.
-var BaseView = require('strictview');
+var HumanView = require('human-view');
 var _ = require('underscore');
 var templates = require('../templates');
 //var key = require('keymaster');
@@ -11,7 +11,7 @@ var tracking = require('../helpers/metrics');
 var setFavicon = require('favicon-setter');
 
 
-module.exports = BaseView.extend({
+module.exports = HumanView.extend({
     template: templates.body,
     initialize: function () {
         // this marks the correct nav item selected

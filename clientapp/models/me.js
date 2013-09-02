@@ -1,26 +1,13 @@
-var StrictModel = require('strictmodel').Model;
+var HumanModel = require('human-model');
 
 
-module.exports = StrictModel.extend({
+module.exports = HumanModel.extend({
     type: 'user',
     props: {
         id: ['string'],
-        teams: ['array', true, []],
-        teamLimit: ['number', true, 0],
-        hasPaidTeam: ['boolean', true, false],
-        textSize: ['string', true, 'medium'],
-        picUrl: ['string', true],
         firstName: ['string', true, ''],
         lastName: ['string', true, ''],
-        free: ['boolean', true, false],
         username: ['string'],
-        email: ['string', true],
-        jid: ['string', true],
-        status: ['string', true],
-        activeTask: ['string', true],
-        newUser: ['boolean', true],
-        didTutorial: ['boolean', true],
-        muted: ['boolean', true]
     },
     derived: {
         fullName: {

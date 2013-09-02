@@ -1,7 +1,7 @@
-var StrictModel = require('strictmodel').Model;
+var HumanModel = require('human-model');
 
 
-module.exports = StrictModel.extend({
+module.exports = HumanModel.extend({
     props: {
         id: 'number',
         firstName: ['string', true, ''],
