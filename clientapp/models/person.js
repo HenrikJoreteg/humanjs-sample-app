@@ -1,7 +1,7 @@
 var HumanModel = require('human-model');
 
 
-module.exports = HumanModel.extend({
+module.exports = HumanModel.define({
     props: {
         id: 'number',
         firstName: ['string', true, ''],

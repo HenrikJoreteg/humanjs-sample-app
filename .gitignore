@@ -1,4 +1,3 @@
-dev_config.json
 .DS_Store
 lib-cov
 *.seed
@@ -8,8 +7,6 @@ lib-cov
 *.out
 *.pid
 *.gz
-
-config.js
 
 pids
 logs
