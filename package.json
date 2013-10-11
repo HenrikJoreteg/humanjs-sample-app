@@ -1,12 +1,8 @@
 {
-  "name": "humanjs-sample-app",
+  "name": "sample",
   "version": "0.0.1",
-  "description": "Reference application",
-  "homepage": "http://humanjavascript.com",
-  "repository": {
-    "type": "git", 
-    "url": "git@github.com:henrikjoreteg/humanjs-sample-app.git"
-  },
+  "author": "Henrik Joreteg <henrik@andyet.net>",
+  "description": "Sample app for http://humanjavascript.com",
   "dependencies": {
     "andlog": "0.0.4",
     "async": "0.2.9",
@@ -16,17 +12,29 @@
     "getconfig": "0.0.5",
     "jade": "0.35.0",
     "loading-stats": "0.0.2",
-    "moonboots": "0.5.1",
+    "moonboots": "0.7.0",
     "helmet": "0.1.0",
-    "semi-static": "0.0.4",
-    "human-model": "1.0.0",
-    "human-view": "1.1.0",
+    "semi-static": "0.0.5",
+    "human-model": "1.4.0",
+    "human-view": "1.2.0",
     "templatizer": "0.1.2",
-    "underscore": "1.5.1",
+    "underscore": "1.5.2",
     "favicon-setter": "0.1.1"
   },
   "devDependencies": {
-    "precommit-hook": "0.3.6"
+    "precommit-hook": "0.3.7"
+  },
+  "jshintConfig": {
+    "asi": false,
+    "expr": true,
+    "loopfunc": true,
+    "curly": false,
+    "white": true,
+    "undef": true,
+    "browser": true,
+    "trailing": true,
+    "indent": 4,
+    "node": true
   },
   "main": "server.js"
 }

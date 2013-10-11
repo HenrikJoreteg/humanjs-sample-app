@@ -33,6 +33,8 @@ app.set('view engine', 'jade');
 // Configure Moonboots to serve our client application
 // ---------------------------------------------------
 var clientApp = new Moonboots({
+    jsFileName: 'sample',
+    cssFileName: 'sample',
     main: __dirname + '/clientapp/app.js',
     developmentMode: config.isDev,
     libraries: [
@@ -47,8 +49,7 @@ var clientApp = new Moonboots({
     },
     server: app,
     beforeBuild: function () {
-        var clientFolder = __dirname + '/clientapp';
-        templatizer(clientFolder + '/templates', clientFolder + '/templates.js');
+        templatizer(__dirname + '/clienttemplates', __dirname + '/clientapp/templates.js');
     }
 });
 
@@ -80,4 +81,4 @@ app.get('*', clientSettingsMiddleware, clientApp.html());
 
 // listen for incoming http requests on the port as specified in our config
 app.listen(config.http.port);
-console.log('human.js sample app is running at: http://localhost:' + config.http.port + ' Yep. That\'s pretty awesome.');
+console.log('Human JavaScript Sample is running at: http://localhost:' + config.http.port + ' Yep. That\'s pretty awesome.');

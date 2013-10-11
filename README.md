@@ -2,7 +2,18 @@
 
 This sample app goes along with the book: http://humanjavascript.com
 
-## How to run it
+It's generated using the `humanjs` app scaffolding.
+
+This one is here as a sample, but if you're starting a new app of your own. Do this:
+
+```
+npm i -g humanjs
+humanjs
+```
+
+And answer the prompts.
+
+## How to run this sample
 
 1. download/install [node.js](http://nodejs.org/)
 1. download/install [git](http://git-scm.com/)
