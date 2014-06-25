@@ -1,28 +1,23 @@
-# human javascript sample app
+# Ampersand Sample
 
-This sample app goes along with the book: http://humanjavascript.com
+This app was generated with the [ampersand cli tool](http://ampersandjs.com/learn/quick-start-guide).
 
-It's generated using the `humanjs` app scaffolding.
-
-This one is here as a sample, but if you're starting a new app of your own. Do this:
-
-```
-npm i -g humanjs
-humanjs
-```
-
-And answer the prompts.
-
-## How to run this sample
+## How to run it
 
 1. download/install [node.js](http://nodejs.org/)
-1. download/install [git](http://git-scm.com/)
-1. clone this repo with git: `git clone git@github.com:HenrikJoreteg/humanjs-sample-app.git`
-1. go into the directory that was created by git: `cd humanjs-sample-app`
 1. install dependencies: `npm i`
-1. run it: `node server`
+1. run it: `npm start`
 1. open http://localhost:3000 in a browser
 
-## License
+## How it's structured
 
-MIT
+See docs: http://ampersandjs.com/
+Curated modules: http://tools.ampersandjs.com/
+
+## Credits
+
+Built by folks at [&yet](http://andyet.com).
+
+## Want a deeper understanding?
+
+Get the book: http://humanjavascript.com
